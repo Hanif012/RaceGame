@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92d534869a6a4c545b59719c143a87e9, type: 3}
+  m_Name: Items
+  m_EditorClassIdentifier: 
+  ItemList:
+  - itemName: Engine
+    itemImage: {fileID: 21300000, guid: 2b62f169ad6c04c2d9a3fa4e8c3aa694, type: 3}
+    itemDescription: Brum2
+    cost: 100
+  - itemName: Metal
+    itemImage: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+    itemDescription: Clank2
+    cost: 50
+  - itemName: Glass
+    itemImage: {fileID: 21300000, guid: eaa71f36e30cb45f1876a4832d45cac4, type: 3}
+    itemDescription: Gelas
+    cost: 49

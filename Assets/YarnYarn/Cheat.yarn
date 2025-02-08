@@ -1,0 +1,27 @@
+﻿title: Cheat
+tags:
+---
+Hello Comrade! I see you are having trouble with the game. Would you like some help?
+-> Yes
+    Aight
+    <<jump YesCheatingIsFun>>
+-> No
+    Alright, have fun!
+    <<GameState MainMenu>>
+===
+
+title: YesCheatingIsFun
+tags:
+---
+What would you like help with?
+-> Money
+    AEZAKMI AddMoney +100
+    <<AddMoney 100>>
+    <<jump YesCheatingIsFun>>
+-> Items
+    /give @s diamond_sword(Steel)
+    <<AddItem "Steel">>
+    <<jump YesCheatingIsFun>>
+-> Return
+    <<jump Cheat>>
+===
