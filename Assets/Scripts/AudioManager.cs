@@ -96,4 +96,6 @@ public class AudioManager : MonoBehaviour
         sfxVolume = Mathf.Clamp01(volume);
         UpdateAudioSourceVolumes();
     }
+
+    [field: SerializeField] public float BGMVolume { get; private set; }
 }

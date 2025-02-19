@@ -607,10 +607,10 @@ MonoBehaviour:
   m_Name: FMODStudioSettings
   m_EditorClassIdentifier: 
   switchSettingsMigration: 1
-  HasSourceProject: 0
-  HasPlatforms: 0
-  sourceProjectPath: 
-  sourceBankPath: Export
+  HasSourceProject: 1
+  HasPlatforms: 1
+  sourceProjectPath: FMODAssets/Race/Race.fspro
+  sourceBankPath: FMODAssets/Race/Build
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
@@ -631,7 +631,8 @@ MonoBehaviour:
   VirtualChannelSettings: []
   RealChannelSettings: []
   Plugins: []
-  MasterBanks: []
+  MasterBanks:
+  - Master
   Banks: []
   BanksToLoad: []
   LiveUpdatePort: 9264
@@ -645,7 +646,7 @@ MonoBehaviour:
   SharedLibraryUpdateStage: 0
   SharedLibraryTimeSinceStart: 0
   CurrentVersion: 131622
-  HideSetupWizard: 0
+  HideSetupWizard: 1
   LastEventReferenceScanVersion: 131622
   Platforms:
   - {fileID: 5056395346660911046}
@@ -725,7 +726,7 @@ MonoBehaviour:
     CallbackHandler:
       Value: {fileID: 0}
       HasValue: 0
-  OutputTypeName: 
+  OutputTypeName: AUTODETECT
   threadAffinities:
     Value: []
     HasValue: 0
