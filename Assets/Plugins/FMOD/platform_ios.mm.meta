@@ -25,7 +25,7 @@ PluginImporter:
         AndroidSharedLibraryType: Executable
         CPU: ARMv7
     Any:
-      enabled: 0
+      enabled: 1
       settings:
         Exclude Android: 0
         Exclude Editor: 1

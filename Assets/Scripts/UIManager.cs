@@ -22,8 +22,8 @@ public class UIManager : MonoBehaviour
     [Header("UI Animations")]
     [SerializeField] private float offScreenbottom = -450f;
     [SerializeField] private float offScreentop = 450f;
-    [SerializeField] private float offScreenleft = -800f;
-    [SerializeField] private float offScreenright = 800f;
+    // [SerializeField] private float offScreenleft = -800f;
+    // [SerializeField] private float offScreenright = 800f;
     [SerializeField] private float onScreen = 0f;
     [SerializeField] private float transitionDuration = 0.5f;
 

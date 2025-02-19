@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 141363938}
   - component: {fileID: 141363939}
   m_Layer: 0
-  m_Name: CameraManager
+  m_Name: CAMERAMANAGER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3520,7 +3520,7 @@ GameObject:
   - component: {fileID: 831636454}
   - component: {fileID: 831636453}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: AUDIOMANAGER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3548,6 +3548,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9771bd225052a77439c56fc8e110d217, type: 3}
   sfxClips:
   - {fileID: 8300000, guid: c542e3e7b94ab3b49b27bacbc07b2a34, type: 3}
+  <BGMVolume>k__BackingField: 0
 --- !u!4 &831636454
 Transform:
   m_ObjectHideFlags: 0
@@ -6154,7 +6155,7 @@ GameObject:
   - component: {fileID: 1555329281}
   - component: {fileID: 1555329282}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: GAMEMANAGER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6337,7 +6338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1606844573}
   m_Layer: 0
-  m_Name: GAMEMANAGER
+  m_Name: Game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9481,8 +9482,8 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 617279866}
   - {fileID: 2060879759}
-  - {fileID: 395353426}
   - {fileID: 1606844573}
+  - {fileID: 395353426}
   - {fileID: 831636454}
   - {fileID: 141363938}
   - {fileID: 1555329281}
