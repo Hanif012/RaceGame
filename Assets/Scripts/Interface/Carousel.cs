@@ -46,17 +46,6 @@ public class Carousel : MonoBehaviour
     private void Start()
     {
         InitializeSlides();
-
-        // Ensure the middle slide is properly positioned at the start
-        if (slides.Length >= MAX_VISIBLE_SLIDES)
-        {
-            activeIndex = slides.Length / 2;
-        }
-        else
-        {
-            activeIndex = 0;
-        }
-
         PositionSlidesInstantly();
 
         if (slides.Length == 0)
@@ -231,18 +220,36 @@ public class Carousel : MonoBehaviour
     public void NextSlide()
     {
         if (slides.Length == 0 || isAnimating) return;
-
-        int nextIndex = Mathf.Min(activeIndex + 1, slides.Length - 1);
+        if (activeIndex == slides.Length - 1)
+        {
+            if (infiniteLoop)
+            {
+                activeIndex = -1;
+            }
+            else
+            {
+                return;
+            }
+        }
+        int nextIndex = (activeIndex + 1) % slides.Length;
         AnimateSlideTransition(nextIndex);
-        Debug.Log("NextSlide: \n" + nextIndex + " " + activeIndex);
     }
 
     public void PrevSlide()
     {
         if (slides.Length == 0 || isAnimating) return;
-
-        int prevIndex = Mathf.Max(activeIndex - 1, 0);
+        if (activeIndex == 0)
+        {
+            if (infiniteLoop)
+            {
+                activeIndex = slides.Length;
+            }
+            else
+            {
+                return;
+            }
+        }
+        int prevIndex = (activeIndex - 1 + slides.Length) % slides.Length;
         AnimateSlideTransition(prevIndex);
-        Debug.Log("PrevSlide: " + prevIndex + " " + activeIndex);
     }
 }
