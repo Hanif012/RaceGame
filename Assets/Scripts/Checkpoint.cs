@@ -1,3 +1,4 @@
+// using System.Diagnostics;
 using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
@@ -8,9 +9,12 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Something COlllider");
         CarProgress car = other.GetComponent<CarProgress>();
+        Debug.Log(car.name + "is at checkpoint" + checkpointIndex);
         if (car != null)
         {
+            Debug.Log(car.name + "is at checkpoint" + checkpointIndex);
             car.UpdateCheckpoint(checkpointIndex);
         }
     }

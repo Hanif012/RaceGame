@@ -5,22 +5,23 @@ using System.Collections;
 public class Car : MonoBehaviour
 {
     public float waypointThreshold = 3f;
-    public float maxSpeed = 10f; 
+    public float maxSpeed = 10f;
     public float turnSpeed = 5f;
-    public float detectionRange = 5f; 
-    public float overtakingOffset = 2f; 
-    public float overtakingSpeedBoost = 2f; 
-    public float overtakingDuration = 1.5f; 
-    public float momentumDuration = 2f; 
-    public float brakingDeceleration = 5f; 
+    public float brakePower = 1f;
+    public float Acceleration = 1f;
+    public float detectionRange = 5f;
+    public float overtakingOffset = 2f;
+    public float overtakingSpeedBoost = 2f;
+    public float overtakingDuration = 1.5f;
+    public float momentumDuration = 2f;
+    public float brakingDeceleration = 5f;
 
     private NavMeshAgent navMeshAgent;
-    private WaypointManager waypointManager; 
-    private int currentWaypointIndex = 0;
-    private bool isOvertaking = false; 
+    private WaypointManager waypointManager;
+    public int currentWaypointIndex = 0;
+    private bool isOvertaking = false;
     private bool raceStarted = false; // Prevent movement before race starts
-
-    private CarProgress carProgress; 
+    private CarProgress carProgress;
 
     void Start()
     {
@@ -38,6 +39,7 @@ public class Car : MonoBehaviour
         {
             navMeshAgent.SetDestination(waypointManager.waypoints[currentWaypointIndex].position);
         }
+        StartRace();
     }
 
     void Update()
@@ -45,12 +47,12 @@ public class Car : MonoBehaviour
         if (!raceStarted) return; // Prevent movement until race starts
 
         // Handle waypoint navigation
-        if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance < waypointThreshold)
+        if (Vector3.Distance(waypointManager.waypoints[currentWaypointIndex].position, transform.position) < waypointThreshold)
         {
-            currentWaypointIndex = (currentWaypointIndex + 1) % waypointManager.waypoints.Count;
+            currentWaypointIndex = currentWaypointIndex >= waypointManager.waypoints.Count - 1 ? 0 : (currentWaypointIndex + 1);
+
             navMeshAgent.SetDestination(waypointManager.waypoints[currentWaypointIndex].position);
 
-            // Check if this waypoint is the finish line
             if (waypointManager.IsFinishLine(currentWaypointIndex))
             {
                 HandleLapCompletion();
@@ -62,16 +64,13 @@ public class Car : MonoBehaviour
         AdjustSpeedForTurns();
 
         // Handle overtaking
-        if (DetectCarAhead() && !isOvertaking)
-        {
-            StartCoroutine(Overtake());
-        }
+
     }
 
     public void StartRace()
     {
         raceStarted = true;
-        navMeshAgent.speed = maxSpeed; // Set speed when race starts
+        navMeshAgent.speed = Mathf.Lerp(navMeshAgent.speed, maxSpeed, Time.deltaTime * Acceleration); // Set speed when race starts
         Debug.Log($"{name} has started the race!");
     }
 
@@ -86,7 +85,7 @@ public class Car : MonoBehaviour
     private void FinishRace()
     {
         Debug.Log($"{name} has finished the race. Starting momentum...");
-        StartCoroutine(ApplyMomentum());
+        // StartCoroutine(ApplyMomentum());
     }
 
     private IEnumerator ApplyMomentum()
@@ -120,54 +119,22 @@ public class Car : MonoBehaviour
         }
     }
 
-    private bool DetectCarAhead()
-    {
-        // Detect cars within the detection range in the forward direction
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, detectionRange))
-        {
-            if (hit.collider.CompareTag("Car"))
-            {
-                return true; 
-            }
-        }
-        return false;
-    }
-
-    private IEnumerator Overtake()
-    {
-        isOvertaking = true;
-
-        // Adjust the agent's position to simulate overtaking
-        Vector3 overtakingTarget = navMeshAgent.destination + transform.right * overtakingOffset;
-        navMeshAgent.SetDestination(overtakingTarget);
-
-        // Apply temporary speed boost
-        navMeshAgent.speed = maxSpeed + overtakingSpeedBoost;
-
-        yield return new WaitForSeconds(overtakingDuration);
-
-        // End overtaking behavior
-        isOvertaking = false;
-        navMeshAgent.speed = maxSpeed;
-
-        // Return to the main waypoint path
-        navMeshAgent.SetDestination(waypointManager.waypoints[currentWaypointIndex].position);
-    }
 
     private void AdjustSpeedForTurns()
     {
-        Vector3 forward = transform.forward;
-        Vector3 waypointDirection = (navMeshAgent.destination - transform.position).normalized;
+        Vector3 desiredDirection = navMeshAgent.desiredVelocity.normalized;
+        float turnAngles = Vector3.SignedAngle(transform.forward, desiredDirection, Vector3.up);
+        float targetSpeed = 15 * (1 - Mathf.Abs(turnAngles) / 80f);
+        Debug.Log("turn Angle = " + targetSpeed);
+        navMeshAgent.acceleration =Mathf.Lerp(5 + Mathf.Pow(maxSpeed, 1.05f), Mathf.Pow(maxSpeed-10, 1.5f) * 70/100, targetSpeed / 15f);
 
-        float turnAngle = Vector3.Angle(forward, waypointDirection);
-
-        if (turnAngle > 45f)
+        if (turnAngles > 20f)
         {
-            navMeshAgent.speed = Mathf.Lerp(navMeshAgent.speed, maxSpeed * 0.5f, Time.deltaTime);
+            navMeshAgent.speed = Mathf.Lerp(navMeshAgent.speed, targetSpeed, Time.deltaTime * brakePower * 5);
         }
         else
         {
-            navMeshAgent.speed = Mathf.Lerp(navMeshAgent.speed, maxSpeed, Time.deltaTime);
+            navMeshAgent.speed = Mathf.Lerp(navMeshAgent.speed, maxSpeed, Time.deltaTime * Acceleration);
         }
     }
     public IEnumerator StartRaceWithDelay(float delay)
@@ -175,5 +142,9 @@ public class Car : MonoBehaviour
         yield return new WaitForSeconds(delay);
         StartRace();
     }
-
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, waypointThreshold); // Draws a wireframe circle
+    }
 }

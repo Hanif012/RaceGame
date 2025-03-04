@@ -20,13 +20,13 @@ public class CarProgress : MonoBehaviour
     }
     public void UpdateCheckpoint(int newCheckpointIndex)
     {
-        Debug.Log($"Current Checkpoint: {currentCheckpoint}, New Checkpoint: {newCheckpointIndex}, Completed Laps: {completedLaps}");
+        // Debug.Log($"Current Checkpoint: {currentCheckpoint}, New Checkpoint: {newCheckpointIndex}, Completed Laps: {completedLaps}");
 
         // Check if the car is transitioning from the last checkpoint to the finish line
         if (newCheckpointIndex == 0 && currentCheckpoint == WaypointManager.Instance.TotalWaypoints - 1)
         {
             completedLaps++;
-            Debug.Log($"{name} completed lap {completedLaps}/{totalLaps}");
+            // Debug.Log($"{name} completed lap {completedLaps}/{totalLaps}");
 
             // Only set isFinished if total laps are completed
             if (completedLaps >= totalLaps)
