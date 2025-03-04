@@ -12,7 +12,6 @@ public class MenuCarousel : MonoBehaviour
     [Tooltip("Slide transition duration in seconds.")]
     [SerializeField] private float slideDuration = 0.5f;
     [Tooltip("Enable or disable auto infinite sliding.")]
-    [SerializeField] private bool autoCycle = true;
 
     [SerializeField] private int activeIndex = 0;
     
@@ -74,28 +73,11 @@ public class MenuCarousel : MonoBehaviour
         for (int i = 0; i < slides.Length; i++)
         {
             RectTransform slide = slides[i];
-            if(i < MAX_VISIBLE_SLIDES)
+            if(i < 3)
             {
-                if (i == 0)
-                {
-                    SetSlide(slide, MostLeftPosition, MostLeftPosition.localScale, ThirdOpacity, true);
-                }
-                else if (i == 1)
-                {
-                    SetSlide(slide, LeftPosition, LeftPosition.localScale, SecondOpacity, true);
-                }
-                else if (i == 2)
-                {
-                    SetSlide(slide, TargetPosition, TargetPosition.localScale, firstOpacity, true);
-                }
-                else if (i == 3)
-                {
-                    SetSlide(slide, RightPosition, RightPosition.localScale, SecondOpacity, true);
-                }
-                else if (i == 4)
-                {
-                    SetSlide(slide, MostRightPosition, MostRightPosition.localScale, ThirdOpacity, true);
-                }
+                if (i == 0) SetSlide(slide, TargetPosition, TargetPosition.localScale, firstOpacity, true);
+                else if (i == 1) SetSlide(slide, RightPosition, RightPosition.localScale, SecondOpacity, true);
+                else if (i == 2) SetSlide(slide, MostRightPosition, MostRightPosition.localScale, ThirdOpacity, true);
             }
             else
             {
@@ -167,6 +149,7 @@ public class MenuCarousel : MonoBehaviour
             }
             else if (i == end)
             {
+                SetSlide(slide, MostRightPosition, MostRightPosition.localScale, ThirdOpacity, true);
                 MoveSlide(slide, MostRightPosition, MostRightPosition.localScale, ThirdOpacity, true);
             }
         }
@@ -175,7 +158,6 @@ public class MenuCarousel : MonoBehaviour
     private void MoveSlide(RectTransform slide, RectTransform targetPosition, Vector3 scale, float alpha, bool isActive)
     {
         slide.gameObject.SetActive(isActive);
-
         LMotion.Create(slide.anchoredPosition, targetPosition.anchoredPosition, slideDuration)
             .WithEase(Ease.OutQuad)
             .BindToAnchoredPosition(slide);

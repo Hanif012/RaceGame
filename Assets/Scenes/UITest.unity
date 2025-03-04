@@ -4187,6 +4187,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1905082604}
+        m_TargetAssemblyTypeName: MenuCarousel, Assembly-CSharp
+        m_MethodName: MoveNext
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &601588207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9137,7 +9149,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1606844573
 Transform:
   m_ObjectHideFlags: 0
@@ -10697,7 +10709,6 @@ MonoBehaviour:
   content: {fileID: 1647301663}
   slides: []
   slideDuration: 0.5
-  autoCycle: 1
   activeIndex: 0
   MostLeftPosition: {fileID: 737207597}
   LeftPosition: {fileID: 428004839}
@@ -11051,6 +11062,18 @@ MonoBehaviour:
       - m_Target: {fileID: 867142939}
         m_TargetAssemblyTypeName: Carousel, Assembly-CSharp
         m_MethodName: PrevSlide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1905082604}
+        m_TargetAssemblyTypeName: MenuCarousel, Assembly-CSharp
+        m_MethodName: MovePrev
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
