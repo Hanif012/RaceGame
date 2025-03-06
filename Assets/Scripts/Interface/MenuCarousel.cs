@@ -149,7 +149,6 @@ public class MenuCarousel : MonoBehaviour
             }
             else if (i == end)
             {
-                SetSlide(slide, MostRightPosition, MostRightPosition.localScale, ThirdOpacity, true);
                 MoveSlide(slide, MostRightPosition, MostRightPosition.localScale, ThirdOpacity, true);
             }
         }
