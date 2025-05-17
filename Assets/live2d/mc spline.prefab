@@ -530,7 +530,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2060512961312132174
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -544,6 +544,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -564,6 +565,7 @@ MonoBehaviour:
   m_Solvers:
   - {fileID: 2698477174381262914}
   m_Weight: 1
+  m_AlwaysUpdate: 1
   m_SolverEditorData:
   - color: {r: 0, g: 1, b: 0, a: 1}
     showGizmo: 1
@@ -774,8 +776,8 @@ MonoBehaviour:
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 0.14
-  dragForce: 0.99
+  stiffnessForce: 0.99
+  dragForce: 0.1
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
   debug: 1
@@ -1044,6 +1046,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1527,8 +1532,8 @@ MonoBehaviour:
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 0.01
-  dragForce: 0.99
+  stiffnessForce: 0.4
+  dragForce: 0.39
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
   debug: 1
@@ -1807,6 +1812,7 @@ MonoBehaviour:
   m_Solvers:
   - {fileID: 0}
   m_Weight: 1
+  m_AlwaysUpdate: 1
   m_SolverEditorData:
   - color: {r: 0, g: 1, b: 0, a: 1}
     showGizmo: 1
@@ -2019,6 +2025,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2116,7 +2125,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5049125807722974691}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.5451476, w: 0.83834016}
+  m_LocalRotation: {x: 0, y: 0, z: -0.5322043, w: 0.84661597}
   m_LocalPosition: {x: 3.7906244, y: -0.00000067298527, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2228,6 +2237,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2307,7 +2319,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5524866953636607420}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.47577792, w: 0.8795655}
+  m_LocalRotation: {x: 0, y: 0, z: 0.47994983, w: 0.877296}
   m_LocalPosition: {x: -0.613099, y: 2.2651553, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2528,6 +2540,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2686,8 +2701,8 @@ MonoBehaviour:
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 0.01
-  dragForce: 0.99
+  stiffnessForce: 0.48
+  dragForce: 0.39
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
   debug: 1
@@ -2880,6 +2895,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2990,6 +3008,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3447,6 +3468,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3763,8 +3787,8 @@ MonoBehaviour:
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 0.01
-  dragForce: 0.99
+  stiffnessForce: 0.55
+  dragForce: 0.39
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
   debug: 1
@@ -3819,6 +3843,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3978,6 +4005,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
