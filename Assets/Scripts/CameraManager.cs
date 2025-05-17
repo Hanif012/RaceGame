@@ -11,7 +11,7 @@ public class CameraManager : MonoBehaviour
 
     private void Start()
     {
-        SwitchToCamera(MenuCam);
+        SwitchToCamera(PlayerCarCam);
     }
 
     public void SwitchToCamera(CinemachineCamera targetCamera)
