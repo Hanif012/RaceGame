@@ -7,6 +7,7 @@ public class WaypointManager : MonoBehaviour
 
     [Header("Waypoints")]
     public List<Transform> waypoints = new List<Transform>();
+    public Transform pitLane;
 
     private int finishLineIndex = -1; // Index of the finish line waypoint
     public int TotalWaypoints => waypoints.Count;

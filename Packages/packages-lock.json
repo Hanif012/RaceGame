@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.anandev.splinemesh": {
+      "version": "https://github.com/AnanD3V/SplineMesh.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.splines": "2.7.2"
+      },
+      "hash": "bb41c0feed67f7bb646d37c29accccc4f2fb1875"
+    },
     "com.annulusgames.lit-motion": {
       "version": "https://github.com/AnnulusGames/LitMotion.git?path=src/LitMotion/Assets/LitMotion",
       "depth": 0,
