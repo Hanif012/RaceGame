@@ -72,6 +72,12 @@ public class Carousel : MonoBehaviour
         int startIndex = Mathf.Max(0, activeIndex - middleIndex);
         int endIndex = Mathf.Min(slides.Length, startIndex + visibleSlides);
 
+        // Apply alpha value based on showBackgroundTransition
+        float leftMostAlpha = showBackgroundTransition ? 0.3f : 0.0f;
+        float leftAlpha = showBackgroundTransition ? 0.7f : 0.0f;
+        float rightAlpha = showBackgroundTransition ? 0.7f : 0.0f;
+        float rightMostAlpha = showBackgroundTransition ? 0.3f : 0.0f;
+
         for (int i = 0; i < slides.Length; i++)
         {
             RectTransform slide = slides[i];
@@ -88,18 +94,18 @@ public class Carousel : MonoBehaviour
             if (visibleSlides == 3)
             {
                 // If only 3 slides are visible (when middle is 1)
-                if (relativePosition == 0) SetSlide(slide, LeftPosition, LeftPosition.localScale, 0.7f, shouldBeActive);
+                if (relativePosition == 0) SetSlide(slide, LeftPosition, LeftPosition.localScale, leftAlpha, shouldBeActive);
                 else if (relativePosition == 1) SetSlide(slide, TargetPosition, TargetPosition.localScale, 1.0f, shouldBeActive);
-                else if (relativePosition == 2) SetSlide(slide, RightPosition, RightPosition.localScale, 0.7f, shouldBeActive);
+                else if (relativePosition == 2) SetSlide(slide, RightPosition, RightPosition.localScale, rightAlpha, shouldBeActive);
             }
             else
             {
                 // If 5 slides are visible
-                if (relativePosition == 0) SetSlide(slide, MostLeftPosition, MostLeftPosition.localScale, 0.3f, shouldBeActive);
-                else if (relativePosition == 1) SetSlide(slide, LeftPosition, LeftPosition.localScale, 0.7f, shouldBeActive);
+                if (relativePosition == 0) SetSlide(slide, MostLeftPosition, MostLeftPosition.localScale, leftMostAlpha, shouldBeActive);
+                else if (relativePosition == 1) SetSlide(slide, LeftPosition, LeftPosition.localScale, leftAlpha, shouldBeActive);
                 else if (relativePosition == middleIndex) SetSlide(slide, TargetPosition, TargetPosition.localScale, 1.0f, shouldBeActive);
-                else if (relativePosition == middleIndex + 1) SetSlide(slide, RightPosition, RightPosition.localScale, 0.7f, shouldBeActive);
-                else if (relativePosition == MAX_VISIBLE_SLIDES - 1) SetSlide(slide, MostRightPosition, MostRightPosition.localScale, 0.3f, shouldBeActive);
+                else if (relativePosition == middleIndex + 1) SetSlide(slide, RightPosition, RightPosition.localScale, rightAlpha, shouldBeActive);
+                else if (relativePosition == visibleSlides - 1) SetSlide(slide, MostRightPosition, MostRightPosition.localScale, rightMostAlpha, shouldBeActive);
             }
         }
     }
@@ -120,9 +126,15 @@ public class Carousel : MonoBehaviour
 
         isAnimating = true;
 
-        int middleIndex = MAX_VISIBLE_SLIDES / 2;
+        // Check whether we need a 3-slide or 5-slide layout
+        int visibleSlides = (targetIndex == 0) ? 3 : MAX_VISIBLE_SLIDES;
+        int middleIndex = visibleSlides / 2;
         int startIndex = Mathf.Max(0, targetIndex - middleIndex);
-        int endIndex = Mathf.Min(slides.Length, startIndex + MAX_VISIBLE_SLIDES);
+        int endIndex = Mathf.Min(slides.Length, startIndex + visibleSlides);
+
+        // Track how many animations are started
+        int animationsStarted = 0;
+        int animationsCompleted = 0;
 
         for (int i = 0; i < slides.Length; i++)
         {
@@ -135,20 +147,53 @@ public class Carousel : MonoBehaviour
                 continue;
             }
 
+            animationsStarted++;
             int relativePosition = i - startIndex;
 
-            if (relativePosition == 0) MoveSlide(slide, MostLeftPosition, MostLeftPosition.localScale, 0.3f, shouldBeActive);
-            else if (relativePosition == 1) MoveSlide(slide, LeftPosition, LeftPosition.localScale, 0.7f, shouldBeActive);
-            else if (relativePosition == middleIndex) MoveSlide(slide, TargetPosition, TargetPosition.localScale, 1.0f, shouldBeActive);
-            else if (relativePosition == middleIndex + 1) MoveSlide(slide, RightPosition, RightPosition.localScale, 0.7f, shouldBeActive);
-            else if (relativePosition == MAX_VISIBLE_SLIDES - 1) MoveSlide(slide, MostRightPosition, MostRightPosition.localScale, 0.3f, shouldBeActive);
+            // Apply alpha value based on showBackgroundTransition
+            float leftMostAlpha = showBackgroundTransition ? 0.3f : 0.0f;
+            float leftAlpha = showBackgroundTransition ? 0.7f : 0.0f;
+            float rightAlpha = showBackgroundTransition ? 0.7f : 0.0f;
+            float rightMostAlpha = showBackgroundTransition ? 0.3f : 0.0f;
+
+            if (visibleSlides == 3)
+            {
+                // If only 3 slides are visible (when middle is first slide)
+                if (relativePosition == 0) MoveSlide(slide, LeftPosition, LeftPosition.localScale, leftAlpha, shouldBeActive, OnAnimationComplete);
+                else if (relativePosition == 1) MoveSlide(slide, TargetPosition, TargetPosition.localScale, 1.0f, shouldBeActive, OnAnimationComplete);
+                else if (relativePosition == 2) MoveSlide(slide, RightPosition, RightPosition.localScale, rightAlpha, shouldBeActive, OnAnimationComplete);
+            }
+            else
+            {
+                // If 5 slides are visible
+                if (relativePosition == 0) MoveSlide(slide, MostLeftPosition, MostLeftPosition.localScale, leftMostAlpha, shouldBeActive, OnAnimationComplete);
+                else if (relativePosition == 1) MoveSlide(slide, LeftPosition, LeftPosition.localScale, leftAlpha, shouldBeActive, OnAnimationComplete);
+                else if (relativePosition == middleIndex) MoveSlide(slide, TargetPosition, TargetPosition.localScale, 1.0f, shouldBeActive, OnAnimationComplete);
+                else if (relativePosition == middleIndex + 1) MoveSlide(slide, RightPosition, RightPosition.localScale, rightAlpha, shouldBeActive, OnAnimationComplete);
+                else if (relativePosition == visibleSlides - 1) MoveSlide(slide, MostRightPosition, MostRightPosition.localScale, rightMostAlpha, shouldBeActive, OnAnimationComplete);
+            }
         }
 
         activeIndex = targetIndex;
-        isAnimating = false;
+        
+        // If no animations were started, set isAnimating to false immediately
+        if (animationsStarted == 0)
+        {
+            isAnimating = false;
+        }
+        
+        // Animation completion callback
+        void OnAnimationComplete()
+        {
+            animationsCompleted++;
+            if (animationsCompleted >= animationsStarted)
+            {
+                isAnimating = false;
+            }
+        }
     }
 
-    private void MoveSlide(RectTransform slide, RectTransform targetPosition, Vector3 scale, float alpha, bool isActive)
+    private void MoveSlide(RectTransform slide, RectTransform targetPosition, Vector3 scale, float alpha, bool isActive, System.Action onComplete = null)
     {
         slide.gameObject.SetActive(isActive);
 
@@ -163,6 +208,7 @@ public class Carousel : MonoBehaviour
         CanvasGroup canvasGroup = slide.GetComponent<CanvasGroup>() ?? slide.gameObject.AddComponent<CanvasGroup>();
         LMotion.Create(canvasGroup.alpha, alpha, slideDuration)
             .WithEase(Ease.OutQuad)
+            .WithOnComplete(() => onComplete?.Invoke())
             .BindToAlpha(canvasGroup);
     }
 
@@ -220,36 +266,48 @@ public class Carousel : MonoBehaviour
     public void NextSlide()
     {
         if (slides.Length == 0 || isAnimating) return;
+        
+        int nextIndex;
         if (activeIndex == slides.Length - 1)
         {
             if (infiniteLoop)
             {
-                activeIndex = -1;
+                nextIndex = 0;
             }
             else
             {
-                return;
+                return; // Can't go beyond the last slide if infinite loop is disabled
             }
         }
-        int nextIndex = (activeIndex + 1) % slides.Length;
+        else
+        {
+            nextIndex = activeIndex + 1;
+        }
+        
         AnimateSlideTransition(nextIndex);
     }
 
     public void PrevSlide()
     {
         if (slides.Length == 0 || isAnimating) return;
+        
+        int prevIndex;
         if (activeIndex == 0)
         {
             if (infiniteLoop)
             {
-                activeIndex = slides.Length;
+                prevIndex = slides.Length - 1;
             }
             else
             {
-                return;
+                return; // Can't go before the first slide if infinite loop is disabled
             }
         }
-        int prevIndex = (activeIndex - 1 + slides.Length) % slides.Length;
+        else
+        {
+            prevIndex = activeIndex - 1;
+        }
+        
         AnimateSlideTransition(prevIndex);
     }
 }
