@@ -4,6 +4,7 @@ using LitMotion;
 using LitMotion.Extensions;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro; // Added for TextMeshProUGUI
 
 public class Carousel : MonoBehaviour
 {
@@ -38,7 +39,11 @@ public class Carousel : MonoBehaviour
     [SerializeField] private RectTransform LeftPosition;
     [SerializeField] private RectTransform TargetPosition;
     [SerializeField] private RectTransform RightPosition;
-    [SerializeField] private RectTransform MostRightPosition;
+    [SerializeField] private RectTransform MostRightPosition;    [Header("Button UI")]
+    [SerializeField] private Button actionButton;  // The button to trigger actions
+    [SerializeField] private TextMeshProUGUI buttonText; // Text component on the button
+    [SerializeField] private string lockedText = "LOCKED";  // Text to show for locked items
+    [SerializeField] private string unlockedText = "LET'S RACE"; // Text to show for unlocked items
 
     private const int MAX_VISIBLE_SLIDES = 5;  // Always an odd number
     private bool isAnimating = false;
@@ -53,6 +58,8 @@ public class Carousel : MonoBehaviour
             Debug.LogWarning("Carousel has no slides! Please check your content setup.");
             return;
         }
+
+        UpdateButtonState(); // Update button text and state based on the initial active slide
 
         if (autoCycle)
         {
@@ -118,13 +125,13 @@ public class Carousel : MonoBehaviour
             yield return new WaitForSeconds(interval);
             NextSlide();
         }
-    }
-
-    private void AnimateSlideTransition(int targetIndex)
+    }    private void AnimateSlideTransition(int targetIndex)
     {
         if (slides.Length == 0 || targetIndex == activeIndex) return;
 
         isAnimating = true;
+        activeIndex = targetIndex;
+        UpdateButtonState();
 
         // Check whether we need a 3-slide or 5-slide layout
         int visibleSlides = (targetIndex == 0) ? 3 : MAX_VISIBLE_SLIDES;
@@ -175,6 +182,8 @@ public class Carousel : MonoBehaviour
         }
 
         activeIndex = targetIndex;
+        
+        UpdateButtonState(); // Update button state and text
         
         // If no animations were started, set isAnimating to false immediately
         if (animationsStarted == 0)
@@ -309,5 +318,20 @@ public class Carousel : MonoBehaviour
         }
         
         AnimateSlideTransition(prevIndex);
+    }
+
+    private void UpdateButtonState()
+    {
+        if (buttonText == null || actionButton == null) return;
+
+        RectTransform currentSlide = slides[activeIndex];
+        var carouselItem = currentSlide.GetComponent<CarouselItem>();
+
+        if (carouselItem != null)
+        {
+            bool isLocked = carouselItem.State == CarouselItem.ItemType.Locked;
+            buttonText.text = isLocked ? lockedText : unlockedText;
+            actionButton.interactable = !isLocked;
+        }
     }
 }

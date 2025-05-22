@@ -600,12 +600,11 @@ MonoBehaviour:
   turnSpeed: 5
   brakePower: 1
   Acceleration: 1
-  detectionRange: 1
-  overtakingOffset: 4
-  overtakingSpeedBoost: 6
-  overtakingDuration: 1.5
-  momentumDuration: 2
-  brakingDeceleration: 5
+  minAccel: 5
+  maxAccel: 50
+  maxTurnAngle: 80
+  pitBoxIndex: 0
+  pitLap: 0
   currentWaypointIndex: 0
 --- !u!195 &153616421
 NavMeshAgent:
@@ -1307,12 +1306,11 @@ MonoBehaviour:
   turnSpeed: 5
   brakePower: 1
   Acceleration: 1
-  detectionRange: 1
-  overtakingOffset: 4
-  overtakingSpeedBoost: 6
-  overtakingDuration: 1.5
-  momentumDuration: 2
-  brakingDeceleration: 5
+  minAccel: 5
+  maxAccel: 50
+  maxTurnAngle: 80
+  pitBoxIndex: 0
+  pitLap: 0
   currentWaypointIndex: 0
 --- !u!195 &360720278
 NavMeshAgent:
@@ -2165,12 +2163,11 @@ MonoBehaviour:
   turnSpeed: 5
   brakePower: 1
   Acceleration: 1
-  detectionRange: 1
-  overtakingOffset: 4
-  overtakingSpeedBoost: 6
-  overtakingDuration: 1.5
-  momentumDuration: 2
-  brakingDeceleration: 5
+  minAccel: 5
+  maxAccel: 50
+  maxTurnAngle: 80
+  pitBoxIndex: 0
+  pitLap: 0
   currentWaypointIndex: 0
 --- !u!54 &483725422
 Rigidbody:
@@ -3458,10 +3455,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c84de08c6ed018145b55826e244b1f51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  content: {fileID: 0}
   slides: []
   slideDuration: 0.5
-  interval: 5
   autoCycle: 1
+  interval: 5
+  infiniteLoop: 1
+  showBackgroundTransition: 1
+  activeIndex: 0
+  MostLeftPosition: {fileID: 0}
+  LeftPosition: {fileID: 0}
+  TargetPosition: {fileID: 0}
+  RightPosition: {fileID: 0}
+  MostRightPosition: {fileID: 0}
 --- !u!1 &869649604
 GameObject:
   m_ObjectHideFlags: 0
@@ -3753,12 +3759,11 @@ MonoBehaviour:
   turnSpeed: 5
   brakePower: 1
   Acceleration: 1
-  detectionRange: 1
-  overtakingOffset: 4
-  overtakingSpeedBoost: 6
-  overtakingDuration: 1.5
-  momentumDuration: 2
-  brakingDeceleration: 5
+  minAccel: 5
+  maxAccel: 50
+  maxTurnAngle: 80
+  pitBoxIndex: 0
+  pitLap: 0
   currentWaypointIndex: 0
 --- !u!195 &1027484472
 NavMeshAgent:
@@ -5765,12 +5770,11 @@ MonoBehaviour:
   turnSpeed: 5
   brakePower: 1
   Acceleration: 1
-  detectionRange: 1
-  overtakingOffset: 4
-  overtakingSpeedBoost: 6
-  overtakingDuration: 1.5
-  momentumDuration: 2
-  brakingDeceleration: 5
+  minAccel: 5
+  maxAccel: 50
+  maxTurnAngle: 80
+  pitBoxIndex: 0
+  pitLap: 0
   currentWaypointIndex: 0
 --- !u!195 &1518709881
 NavMeshAgent:
@@ -7640,7 +7644,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1084112293096630313, guid: 2b8f2e4b38901b147a6df06f9e1df60f, type: 3}
       propertyPath: field of view
-      value: 69.34943
+      value: 60.000004
       objectReference: {fileID: 0}
     - target: {fileID: 3482771473185240490, guid: 2b8f2e4b38901b147a6df06f9e1df60f, type: 3}
       propertyPath: m_Name
@@ -7656,31 +7660,31 @@ PrefabInstance:
       objectReference: {fileID: 1027484468}
     - target: {fileID: 7179566598567161631, guid: 2b8f2e4b38901b147a6df06f9e1df60f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.642315
+      value: -7.511629
       objectReference: {fileID: 0}
     - target: {fileID: 7179566598567161631, guid: 2b8f2e4b38901b147a6df06f9e1df60f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.8165283
+      value: 3.8204906
       objectReference: {fileID: 0}
     - target: {fileID: 7179566598567161631, guid: 2b8f2e4b38901b147a6df06f9e1df60f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.5767612
+      value: 3.8636246
       objectReference: {fileID: 0}
     - target: {fileID: 7179566598567161631, guid: 2b8f2e4b38901b147a6df06f9e1df60f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.94274116
+      value: 0.94665974
       objectReference: {fileID: 0}
     - target: {fileID: 7179566598567161631, guid: 2b8f2e4b38901b147a6df06f9e1df60f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.17798513
+      value: 0.32223487
       objectReference: {fileID: 0}
     - target: {fileID: 7179566598567161631, guid: 2b8f2e4b38901b147a6df06f9e1df60f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.27715513
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7179566598567161631, guid: 2b8f2e4b38901b147a6df06f9e1df60f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0523972
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8229390658620126694, guid: 2b8f2e4b38901b147a6df06f9e1df60f, type: 3}
       propertyPath: m_LocalPosition.x
