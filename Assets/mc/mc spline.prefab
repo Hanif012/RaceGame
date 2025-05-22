@@ -41,14 +41,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8169786511868251}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
   stiffnessForce: 0.01
-  dragForce: 0.99
+  dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
   debug: 1
@@ -125,13 +125,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 109292489179056555}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 1.26
+  stiffnessForce: 0.01
   dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 781800791861556445}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 790483247762975881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -285,13 +285,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1352077554671944363}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 1.26
+  stiffnessForce: 0.01
   dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
@@ -437,13 +437,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1701334140435553262}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 1.26
+  stiffnessForce: 0.01
   dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
@@ -530,7 +530,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2060512961312132174
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -544,6 +544,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -564,6 +565,7 @@ MonoBehaviour:
   m_Solvers:
   - {fileID: 2698477174381262914}
   m_Weight: 1
+  m_AlwaysUpdate: 1
   m_SolverEditorData:
   - color: {r: 0, g: 1, b: 0, a: 1}
     showGizmo: 1
@@ -604,7 +606,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1913469936498896180}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7057606426a8e9e409ce825c2b6d7eb2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0afcb51eba47893499e96d92689a0495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dynamicRatio: 1
@@ -623,7 +625,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   springBones:
-  - {fileID: 3818375065084099403}
+  - {fileID: 5494981292354153176}
+  - {fileID: 8922994266974614213}
+  - {fileID: 5164384054240529797}
+  - {fileID: 8812057473964209616}
+  - {fileID: 6551291568067310276}
+  - {fileID: 5178334603838658435}
   - {fileID: 7641411445438363336}
   - {fileID: 6845321765754393525}
   - {fileID: 4485887236058212846}
@@ -654,23 +661,14 @@ MonoBehaviour:
   - {fileID: 422443196757071664}
   - {fileID: 7536353461665792551}
   - {fileID: 8601889969969802802}
-  - {fileID: 0}
-  - {fileID: 2713736565398267583}
-  - {fileID: 8621858799431932438}
-  - {fileID: 0}
   - {fileID: 3480646671083084618}
   - {fileID: 5860055338407004491}
   - {fileID: 2307448287322094165}
   - {fileID: 712364209617806640}
   - {fileID: 6685384132393155690}
-  - {fileID: 5494981292354153176}
-  - {fileID: 8178038969955312039}
-  - {fileID: 8922994266974614213}
-  - {fileID: 5164384054240529797}
-  - {fileID: 8812057473964209616}
   - {fileID: 2206672998597265803}
-  - {fileID: 6551291568067310276}
-  - {fileID: 5178334603838658435}
+  - {fileID: 8621858799431932438}
+  - {fileID: 2713736565398267583}
 --- !u!1 &1974018421613862510
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,13 +712,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1974018421613862510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 1.26
+  stiffnessForce: 0.01
   dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
@@ -768,14 +766,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2371093272334247194}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 0.54
-  dragForce: 0.13
+  stiffnessForce: 0.01
+  dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
   debug: 1
@@ -822,7 +820,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2379496524951794778}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -876,14 +874,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2490025606719141699}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
   stiffnessForce: 0.01
-  dragForce: 0.99
+  dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
   debug: 1
@@ -929,14 +927,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2491458799608162838}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
   stiffnessForce: 0.01
-  dragForce: 0.99
+  dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
   debug: 1
@@ -982,7 +980,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2504451703545214149}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -1044,6 +1042,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1158,13 +1159,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2589522007446930274}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 1.26
+  stiffnessForce: 0.01
   dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
@@ -1276,7 +1277,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2929036312272339916}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -1329,7 +1330,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3050045946857366049}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -1383,14 +1384,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3108653292118126976}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
   stiffnessForce: 0.01
-  dragForce: 0.99
+  dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
   debug: 1
@@ -1468,7 +1469,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3337078116158884060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -1521,14 +1522,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3490252917128378184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
   stiffnessForce: 0.01
-  dragForce: 0.39
+  dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
   debug: 1
@@ -1608,13 +1609,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3523811240636296150}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 1.26
+  stiffnessForce: 0.01
   dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
@@ -1693,13 +1694,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3712242338882640692}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 1.26
+  stiffnessForce: 0.01
   dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
@@ -1747,14 +1748,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3779781927727566398}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 0.12
-  dragForce: 0.99
+  stiffnessForce: 0.01
+  dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
   debug: 1
@@ -1807,6 +1808,7 @@ MonoBehaviour:
   m_Solvers:
   - {fileID: 0}
   m_Weight: 1
+  m_AlwaysUpdate: 1
   m_SolverEditorData:
   - color: {r: 0, g: 1, b: 0, a: 1}
     showGizmo: 1
@@ -1819,14 +1821,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3909406378868214166}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
   stiffnessForce: 0.01
-  dragForce: 0.99
+  dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
   debug: 1
@@ -1872,7 +1874,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3957546578508487772}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -1957,7 +1959,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4795457780000890778}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -2019,6 +2021,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2166,7 +2171,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5141987507195836709}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -2228,6 +2233,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2358,13 +2366,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5568866675968426425}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 1.26
+  stiffnessForce: 0.01
   dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
@@ -2412,13 +2420,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5617466109422763251}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 1.26
+  stiffnessForce: 0.01
   dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
@@ -2466,7 +2474,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5791961607114090890}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -2528,6 +2536,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2626,7 +2637,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6591168268153341174}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -2680,14 +2691,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6673712048622674303}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
   stiffnessForce: 0.01
-  dragForce: 0.39
+  dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
   debug: 1
@@ -2733,7 +2744,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6808840090475109107}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -2818,7 +2829,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6873403261127848182}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -2880,6 +2891,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2990,6 +3004,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3092,14 +3109,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7369255505757922012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
   stiffnessForce: 0.01
-  dragForce: 0.99
+  dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
   debug: 1
@@ -3146,13 +3163,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7517430487190482249}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 1.26
+  stiffnessForce: 0.01
   dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
@@ -3200,7 +3217,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7568030221831300655}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -3253,7 +3270,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7639722205394534017}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -3353,7 +3370,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7829678160278801353}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -3447,6 +3464,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3544,7 +3564,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7868523182474641566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -3597,13 +3617,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7961153023912291023}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 1.26
+  stiffnessForce: 0.01
   dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
@@ -3650,7 +3670,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8015728705506821355}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -3703,7 +3723,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8232490292530291760}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -3757,14 +3777,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8269969857651970613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
   stiffnessForce: 0.01
-  dragForce: 0.39
+  dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
   debug: 1
@@ -3819,6 +3839,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3916,7 +3939,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8458239331480599617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -3978,6 +4001,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4082,7 +4108,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8712549359094082203}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
@@ -4136,13 +4162,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 9178314254347254889}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 1.26
+  stiffnessForce: 0.01
   dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
@@ -4190,13 +4216,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 9188628661435470168}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a423191581530d040a9ae950c0b499cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 364dce1581acb6e4897c9b8dd4a552a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boneAxis: {x: 0, y: 1, z: 0}
   radius: 0.05
   isUseEachBoneForceSettings: 0
-  stiffnessForce: 1.26
+  stiffnessForce: 0.01
   dragForce: 0.4
   springForce: {x: 0, y: -0.0001, z: 0}
   colliders: []
