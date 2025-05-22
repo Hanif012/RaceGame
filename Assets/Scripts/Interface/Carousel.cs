@@ -3,29 +3,120 @@ using UnityEngine.UI;
 using LitMotion;
 using LitMotion.Extensions;
 using System.Collections;
+using System.Collections.Generic;
+using TMPro; // Added for TextMeshProUGUI
 
-public class LitMotionCarousel : MonoBehaviour
+public class Carousel : MonoBehaviour
 {
-    [SerializeField] private RectTransform[] slides; // UI Slides (Panels or Images)
-    [SerializeField] private float slideDuration = 0.5f; // Time for slide transition
-    [SerializeField] private float interval = 5f; // Time before auto-slide starts
-    [SerializeField] private bool autoCycle = true; // Enable auto-sliding
+    [Header("Carousel Settings")]
+    [Tooltip("The content GameObject that holds the slides.")]
+    [SerializeField] private GameObject content;
 
-    private int activeIndex = 0; // Current active slide index
+    [Tooltip("Array of RectTransforms representing the UI slides.")]
+    [SerializeField] private RectTransform[] slides;
+
+    [Tooltip("Duration of the slide transition in seconds.")]
+    [SerializeField] private float slideDuration = 0.5f;
+
+    [Tooltip("Enable or disable auto-sliding.")]
+    [SerializeField] private bool autoCycle = true;
+
+    [Tooltip("Time interval before auto-slide starts.")]
+    [SerializeField] private float interval = 5f;
+
+    [Tooltip("Enable or disable infinite looping.")]
+    [SerializeField] private bool infiniteLoop = true;
+
+    [Tooltip("Enable or disable showing background transition")]
+    [SerializeField] private bool showBackgroundTransition = true;
+
+    [Tooltip("Current active slide index.")]
+    [SerializeField] private int activeIndex = 0;
     private Coroutine autoSlideCoroutine;
-    private Vector2 originalPosition;
+
+    [Header("Slide Positions")]
+    [SerializeField] private RectTransform MostLeftPosition;
+    [SerializeField] private RectTransform LeftPosition;
+    [SerializeField] private RectTransform TargetPosition;
+    [SerializeField] private RectTransform RightPosition;
+    [SerializeField] private RectTransform MostRightPosition;    [Header("Button UI")]
+    [SerializeField] private Button actionButton;  // The button to trigger actions
+    [SerializeField] private TextMeshProUGUI buttonText; // Text component on the button
+    [SerializeField] private string lockedText = "LOCKED";  // Text to show for locked items
+    [SerializeField] private string unlockedText = "LET'S RACE"; // Text to show for unlocked items
+
+    private const int MAX_VISIBLE_SLIDES = 5;  // Always an odd number
+    private bool isAnimating = false;
 
     private void Start()
     {
-        originalPosition = slides[0].anchoredPosition;
+        InitializeSlides();
+        PositionSlidesInstantly();
+
+        if (slides.Length == 0)
+        {
+            Debug.LogWarning("Carousel has no slides! Please check your content setup.");
+            return;
+        }
+
+        UpdateButtonState(); // Update button text and state based on the initial active slide
 
         if (autoCycle)
         {
             autoSlideCoroutine = StartCoroutine(AutoSlide());
         }
-
-        InitializeSlides();
     }
+
+    private void PositionSlidesInstantly()
+    {
+        if (slides.Length == 0) return;
+
+        // Check if the middle is the first slide, then only show 3 slides instead of 5
+        int visibleSlides = (activeIndex == 0) ? 3 : MAX_VISIBLE_SLIDES;
+        int middleIndex = visibleSlides / 2;
+        
+        // Start index needs to be dynamically adjusted
+        int startIndex = Mathf.Max(0, activeIndex - middleIndex);
+        int endIndex = Mathf.Min(slides.Length, startIndex + visibleSlides);
+
+        // Apply alpha value based on showBackgroundTransition
+        float leftMostAlpha = showBackgroundTransition ? 0.3f : 0.0f;
+        float leftAlpha = showBackgroundTransition ? 0.7f : 0.0f;
+        float rightAlpha = showBackgroundTransition ? 0.7f : 0.0f;
+        float rightMostAlpha = showBackgroundTransition ? 0.3f : 0.0f;
+
+        for (int i = 0; i < slides.Length; i++)
+        {
+            RectTransform slide = slides[i];
+            bool shouldBeActive = (i >= startIndex && i < endIndex);
+
+            if (!shouldBeActive)
+            {
+                slide.gameObject.SetActive(false);
+                continue;
+            }
+
+            int relativePosition = i - startIndex;
+
+            if (visibleSlides == 3)
+            {
+                // If only 3 slides are visible (when middle is 1)
+                if (relativePosition == 0) SetSlide(slide, LeftPosition, LeftPosition.localScale, leftAlpha, shouldBeActive);
+                else if (relativePosition == 1) SetSlide(slide, TargetPosition, TargetPosition.localScale, 1.0f, shouldBeActive);
+                else if (relativePosition == 2) SetSlide(slide, RightPosition, RightPosition.localScale, rightAlpha, shouldBeActive);
+            }
+            else
+            {
+                // If 5 slides are visible
+                if (relativePosition == 0) SetSlide(slide, MostLeftPosition, MostLeftPosition.localScale, leftMostAlpha, shouldBeActive);
+                else if (relativePosition == 1) SetSlide(slide, LeftPosition, LeftPosition.localScale, leftAlpha, shouldBeActive);
+                else if (relativePosition == middleIndex) SetSlide(slide, TargetPosition, TargetPosition.localScale, 1.0f, shouldBeActive);
+                else if (relativePosition == middleIndex + 1) SetSlide(slide, RightPosition, RightPosition.localScale, rightAlpha, shouldBeActive);
+                else if (relativePosition == visibleSlides - 1) SetSlide(slide, MostRightPosition, MostRightPosition.localScale, rightMostAlpha, shouldBeActive);
+            }
+        }
+    }
+
 
     private IEnumerator AutoSlide()
     {
@@ -34,49 +125,136 @@ public class LitMotionCarousel : MonoBehaviour
             yield return new WaitForSeconds(interval);
             NextSlide();
         }
-    }
-
-    public void NextSlide()
+    }    private void AnimateSlideTransition(int targetIndex)
     {
-        int nextIndex = (activeIndex + 1) % slides.Length;
-        AnimateSlideTransition(nextIndex, 1);
-    }
+        if (slides.Length == 0 || targetIndex == activeIndex) return;
 
-    public void PrevSlide()
-    {
-        int prevIndex = (activeIndex - 1 + slides.Length) % slides.Length;
-        AnimateSlideTransition(prevIndex, -1);
-    }
+        isAnimating = true;
+        activeIndex = targetIndex;
+        UpdateButtonState();
 
-    private void AnimateSlideTransition(int targetIndex, int direction)
-    {
-        if (targetIndex == activeIndex) return;
+        // Check whether we need a 3-slide or 5-slide layout
+        int visibleSlides = (targetIndex == 0) ? 3 : MAX_VISIBLE_SLIDES;
+        int middleIndex = visibleSlides / 2;
+        int startIndex = Mathf.Max(0, targetIndex - middleIndex);
+        int endIndex = Mathf.Min(slides.Length, startIndex + visibleSlides);
 
-        // Move current slide out
-        LMotion.Create(slides[activeIndex].anchoredPosition, slides[activeIndex].anchoredPosition + new Vector2(-direction * slides[activeIndex].rect.width, 0), slideDuration)
-            .WithEase(Ease.OutQuad)
-            .BindToAnchoredPosition(slides[activeIndex]);
+        // Track how many animations are started
+        int animationsStarted = 0;
+        int animationsCompleted = 0;
 
-        // Move next slide in
-        slides[targetIndex].anchoredPosition = originalPosition + new Vector2(direction * slides[targetIndex].rect.width, 0);
-        slides[targetIndex].gameObject.SetActive(true);
-        
-        LMotion.Create(slides[targetIndex].anchoredPosition, originalPosition, slideDuration)
-            .WithEase(Ease.OutQuad)
-            .WithOnComplete(() =>
+        for (int i = 0; i < slides.Length; i++)
+        {
+            RectTransform slide = slides[i];
+            bool shouldBeActive = (i >= startIndex && i < endIndex);
+
+            if (!shouldBeActive)
             {
-                slides[activeIndex].gameObject.SetActive(false);
-                activeIndex = targetIndex;
-            })
-            .BindToAnchoredPosition(slides[targetIndex]);
+                slide.gameObject.SetActive(false);
+                continue;
+            }
+
+            animationsStarted++;
+            int relativePosition = i - startIndex;
+
+            // Apply alpha value based on showBackgroundTransition
+            float leftMostAlpha = showBackgroundTransition ? 0.3f : 0.0f;
+            float leftAlpha = showBackgroundTransition ? 0.7f : 0.0f;
+            float rightAlpha = showBackgroundTransition ? 0.7f : 0.0f;
+            float rightMostAlpha = showBackgroundTransition ? 0.3f : 0.0f;
+
+            if (visibleSlides == 3)
+            {
+                // If only 3 slides are visible (when middle is first slide)
+                if (relativePosition == 0) MoveSlide(slide, LeftPosition, LeftPosition.localScale, leftAlpha, shouldBeActive, OnAnimationComplete);
+                else if (relativePosition == 1) MoveSlide(slide, TargetPosition, TargetPosition.localScale, 1.0f, shouldBeActive, OnAnimationComplete);
+                else if (relativePosition == 2) MoveSlide(slide, RightPosition, RightPosition.localScale, rightAlpha, shouldBeActive, OnAnimationComplete);
+            }
+            else
+            {
+                // If 5 slides are visible
+                if (relativePosition == 0) MoveSlide(slide, MostLeftPosition, MostLeftPosition.localScale, leftMostAlpha, shouldBeActive, OnAnimationComplete);
+                else if (relativePosition == 1) MoveSlide(slide, LeftPosition, LeftPosition.localScale, leftAlpha, shouldBeActive, OnAnimationComplete);
+                else if (relativePosition == middleIndex) MoveSlide(slide, TargetPosition, TargetPosition.localScale, 1.0f, shouldBeActive, OnAnimationComplete);
+                else if (relativePosition == middleIndex + 1) MoveSlide(slide, RightPosition, RightPosition.localScale, rightAlpha, shouldBeActive, OnAnimationComplete);
+                else if (relativePosition == visibleSlides - 1) MoveSlide(slide, MostRightPosition, MostRightPosition.localScale, rightMostAlpha, shouldBeActive, OnAnimationComplete);
+            }
+        }
+
+        activeIndex = targetIndex;
+        
+        UpdateButtonState(); // Update button state and text
+        
+        // If no animations were started, set isAnimating to false immediately
+        if (animationsStarted == 0)
+        {
+            isAnimating = false;
+        }
+        
+        // Animation completion callback
+        void OnAnimationComplete()
+        {
+            animationsCompleted++;
+            if (animationsCompleted >= animationsStarted)
+            {
+                isAnimating = false;
+            }
+        }
+    }
+
+    private void MoveSlide(RectTransform slide, RectTransform targetPosition, Vector3 scale, float alpha, bool isActive, System.Action onComplete = null)
+    {
+        slide.gameObject.SetActive(isActive);
+
+        LMotion.Create(slide.anchoredPosition, targetPosition.anchoredPosition, slideDuration)
+            .WithEase(Ease.OutQuad)
+            .BindToAnchoredPosition(slide);
+
+        LMotion.Create(slide.localScale, scale, slideDuration)
+            .WithEase(Ease.OutQuad)
+            .BindToLocalScale(slide);
+
+        CanvasGroup canvasGroup = slide.GetComponent<CanvasGroup>() ?? slide.gameObject.AddComponent<CanvasGroup>();
+        LMotion.Create(canvasGroup.alpha, alpha, slideDuration)
+            .WithEase(Ease.OutQuad)
+            .WithOnComplete(() => onComplete?.Invoke())
+            .BindToAlpha(canvasGroup);
     }
 
     private void InitializeSlides()
     {
-        for (int i = 0; i < slides.Length; i++)
+        if (slides.Length == 0 && content != null)
         {
-            slides[i].gameObject.SetActive(i == activeIndex);
+            int childCount = content.transform.childCount;
+            if (childCount == 0)
+            {
+                Debug.LogWarning("Carousel content has no child slides.");
+                return;
+            }
+
+            slides = new RectTransform[childCount];
+
+            for (int i = 0; i < childCount; i++)
+            {
+                slides[i] = content.transform.GetChild(i).GetComponent<RectTransform>();
+            }
         }
+
+        if (slides.Length == 0)
+        {
+            Debug.LogWarning("No slides were found in the content object.");
+            return;
+        }
+    }
+
+    private void SetSlide(RectTransform slide, RectTransform position, Vector3 scale, float alpha, bool isActive)
+    {
+        slide.anchoredPosition = position.anchoredPosition;
+        slide.localScale = scale;
+        slide.gameObject.SetActive(isActive);
+
+        CanvasGroup canvasGroup = slide.GetComponent<CanvasGroup>() ?? slide.gameObject.AddComponent<CanvasGroup>();
+        canvasGroup.alpha = alpha;
     }
 
     public void PauseCarousel()
@@ -92,6 +270,68 @@ public class LitMotionCarousel : MonoBehaviour
         if (autoCycle)
         {
             autoSlideCoroutine = StartCoroutine(AutoSlide());
+        }
+    }
+    public void NextSlide()
+    {
+        if (slides.Length == 0 || isAnimating) return;
+        
+        int nextIndex;
+        if (activeIndex == slides.Length - 1)
+        {
+            if (infiniteLoop)
+            {
+                nextIndex = 0;
+            }
+            else
+            {
+                return; // Can't go beyond the last slide if infinite loop is disabled
+            }
+        }
+        else
+        {
+            nextIndex = activeIndex + 1;
+        }
+        
+        AnimateSlideTransition(nextIndex);
+    }
+
+    public void PrevSlide()
+    {
+        if (slides.Length == 0 || isAnimating) return;
+        
+        int prevIndex;
+        if (activeIndex == 0)
+        {
+            if (infiniteLoop)
+            {
+                prevIndex = slides.Length - 1;
+            }
+            else
+            {
+                return; // Can't go before the first slide if infinite loop is disabled
+            }
+        }
+        else
+        {
+            prevIndex = activeIndex - 1;
+        }
+        
+        AnimateSlideTransition(prevIndex);
+    }
+
+    private void UpdateButtonState()
+    {
+        if (buttonText == null || actionButton == null) return;
+
+        RectTransform currentSlide = slides[activeIndex];
+        var carouselItem = currentSlide.GetComponent<CarouselItem>();
+
+        if (carouselItem != null)
+        {
+            bool isLocked = carouselItem.State == CarouselItem.ItemType.Locked;
+            buttonText.text = isLocked ? lockedText : unlockedText;
+            actionButton.interactable = !isLocked;
         }
     }
 }
