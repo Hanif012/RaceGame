@@ -10,20 +10,27 @@ public class Car : MonoBehaviour
     public float turnSpeed = 5f;
     public float brakePower = 1f;
     public float Acceleration = 1f;
-    public float detectionRange = 5f;
 
-    private NavMeshAgent navMeshAgent;
-    private WaypointManager waypointManager;
-    public int currentWaypointIndex = 0;
-    private bool raceStarted = false;
-    private CarProgress carProgress;
-
-    // Acceleration tuning
     public float minAccel = 5f;
     public float maxAccel = 50f;
     public float maxTurnAngle = 80f;
+
+    public int pitBoxIndex;
     public bool pitLap = false;
-    public bool pitting = false;
+    private bool pitting = false;
+
+    private NavMeshAgent navMeshAgent;
+    private WaypointManager waypointManager;
+    private CarProgress carProgress;
+    public int currentWaypointIndex = 0;
+    private bool raceStarted = false;
+
+    private enum PitState { None, GoingToPit, DrivingToBox, EnterBox, Stopping, ExitBox, ReturningToPitLane, ExitingPit }
+    private PitState _pitState = PitState.None;
+
+    private float _pitStopTimer = 0f;
+    private float _pitStopDuration = 3f;
+    private int _pitExitWaypointIndex = 2;
 
     void Start()
     {
@@ -43,40 +50,24 @@ public class Car : MonoBehaviour
 
         StartRace();
     }
-    public void PitThisLap()
-    {
-        pitLap = true;
-    }
-    void Pitting()
-    {
-        navMeshAgent.SetDestination(waypointManager.waypoints[1].position);
-        currentWaypointIndex = 1;
-        return;
-    }
+
     void Update()
     {
         if (!raceStarted) return;
-        if(pitLap && Vector3.Distance(waypointManager.pitLane.position, transform.position) < waypointThreshold)
-        {
-            pitLap = false;
-            Invoke("Pitting",2f);
-        }
-        if (Vector3.Distance(waypointManager.waypoints[currentWaypointIndex].position, transform.position) < waypointThreshold)
+
+        pitHandler();
+
+        if (_pitState == PitState.None && Vector3.Distance(waypointManager.waypoints[currentWaypointIndex].position, transform.position) < waypointThreshold)
         {
             currentWaypointIndex = currentWaypointIndex >= waypointManager.waypoints.Count - 1 ? 0 : (currentWaypointIndex + 1);
-            if(pitLap && currentWaypointIndex == 15)
+            if (pitLap && currentWaypointIndex == 0)
             {
-                pitting = true;
-                navMeshAgent.speed = 10f;
-                navMeshAgent.acceleration = 25f;
-                navMeshAgent.SetDestination(waypointManager.pitLane.position);
+                navMeshAgent.SetDestination(waypointManager.pitLaneWaypoint[0].position);
+                _pitState = PitState.GoingToPit;
             }
             else
-            {
-                if(pitting)
-                    pitting = false;
                 navMeshAgent.SetDestination(waypointManager.waypoints[currentWaypointIndex].position);
-            }
+
 
             if (waypointManager.IsFinishLine(currentWaypointIndex))
             {
@@ -85,8 +76,88 @@ public class Car : MonoBehaviour
         }
 
         FaceMovementDirection();
-        if(!pitting)
+
+        if (!pitting)
+        {
             AdjustSpeedForTurns();
+        }
+    }
+    public void goPitThisLap()
+    {
+        pitLap = true;
+    }
+    float SavedTurnTime;
+    public void pitHandler()
+    {
+        if (!pitLap) return;
+
+        switch (_pitState)
+        {
+            case PitState.GoingToPit:
+                if (Vector3.Distance(transform.position, waypointManager.pitLaneWaypoint[0].position) < 5f)
+                {
+                    SavedTurnTime = turnSpeed;
+                    turnSpeed = 2f;
+                    pitting = true;
+                    navMeshAgent.velocity = navMeshAgent.desiredVelocity.normalized * 20f;
+                    navMeshAgent.speed = 20f;
+                    navMeshAgent.acceleration = 1000f;
+                    navMeshAgent.SetDestination(waypointManager.GetPitBoxWaypoint(pitBoxIndex,0).position);
+                    _pitState = PitState.DrivingToBox;
+                }
+                break;
+
+            case PitState.DrivingToBox:
+                if (Vector3.Distance(transform.position, waypointManager.GetPitBoxWaypoint(pitBoxIndex,0).position) < 2f)
+                {
+                    _pitState = PitState.EnterBox;
+                    navMeshAgent.SetDestination(waypointManager.GetPitBoxWaypoint(pitBoxIndex,1).position);
+                }
+                break;
+            case PitState.EnterBox:
+                if(Vector3.Distance(transform.position, waypointManager.GetPitBoxWaypoint(pitBoxIndex,1).position) < 2f)
+                {
+                    navMeshAgent.SetDestination(waypointManager.GetPitBoxWaypoint(pitBoxIndex,2).position);
+                }
+                if (Vector3.Distance(transform.position, waypointManager.GetPitBoxWaypoint(pitBoxIndex,2).position) < 2f)
+                {
+                    navMeshAgent.isStopped = true;
+                    _pitStopTimer = 0f;
+                    _pitState = PitState.Stopping;
+                }
+                break;
+            case PitState.Stopping:
+                _pitStopTimer += Time.deltaTime;
+                if (_pitStopTimer >= _pitStopDuration)
+                {
+                    navMeshAgent.isStopped = false;
+                    navMeshAgent.SetDestination(waypointManager.GetPitBoxWaypoint(pitBoxIndex,3).position);
+                    _pitState = PitState.ExitBox;
+                }
+                break;
+            case PitState.ExitBox:
+                if (Vector3.Distance(transform.position, waypointManager.GetPitBoxWaypoint(pitBoxIndex,3).position) < 1.5f)
+                {
+                    navMeshAgent.SetDestination(waypointManager.pitLaneWaypoint[1].position);
+                    _pitState = PitState.ReturningToPitLane;
+                }
+                break;
+            case PitState.ReturningToPitLane:
+                if (Vector3.Distance(transform.position, waypointManager.pitLaneWaypoint[1].position) < 3f)
+                {
+                    turnSpeed = SavedTurnTime;
+                    currentWaypointIndex = 1;
+                    navMeshAgent.SetDestination(waypointManager.waypoints[1].position);
+                    _pitState = PitState.ExitingPit;
+                }
+                break;
+
+            case PitState.ExitingPit:
+                pitLap = false;
+                pitting = false;
+                _pitState = PitState.None;
+                break;
+        }
     }
 
     public void StartRace()
@@ -124,11 +195,10 @@ public class Car : MonoBehaviour
         float turnAngles = Vector3.SignedAngle(transform.forward, desiredDirection, Vector3.up);
         float targetSpeed = 15f * (1f - Mathf.Abs(turnAngles) / maxTurnAngle);
 
-        // Acceleration increases with turn angle
         float angleRatio = Mathf.Clamp01(Mathf.Abs(turnAngles) / maxTurnAngle);
         navMeshAgent.acceleration = Mathf.Lerp(minAccel, maxAccel, angleRatio);
 
-        if (Mathf.Abs(turnAngles) > 10f)
+        if (Mathf.Abs(turnAngles) > 40f)
         {
             navMeshAgent.speed = Mathf.Lerp(navMeshAgent.speed, targetSpeed, Time.deltaTime * brakePower * 5f);
         }
